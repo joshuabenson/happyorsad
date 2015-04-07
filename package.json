@@ -17,6 +17,7 @@
     "express-partials": "~0.2.0",
     "express-session": "^1.7.2",
     "forever": "^0.10.11",
+    "mosca": "^0.28.1",
     "mqtt": "^1.1.3",
     "mqtt-ws": "^0.2.0",
     "nodemon": "^1.2.1",
