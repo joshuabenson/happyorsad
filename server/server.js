@@ -4,10 +4,9 @@ var mqtt = require('mqtt');
 var mqttClient = require('MQTTClient');
 var io = require('socket.io').listen(5000);
 
+var serverGet = function() {
+
 var client = mqtt.connect('mqtt://test.mosquitto.org');
-
-
-
 
 client.on('connect', function(){
   client.subscribe('owntracks/joshb123/joshiphone');
@@ -17,3 +16,5 @@ client.on('message', function(topic, message){
   console.log(message.toString());
   client.end();
 });
+};
+setInterval(function(){ serverGet() }, 10000);  //glen's bandaid 
