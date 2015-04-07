@@ -7,18 +7,18 @@ var GPSdata;
 
 var fetch = function(){
     $.ajax({ 
-    url: 'localhost:8080',
+    url: 'http://localhost:8080',
     type: 'GET',
     success: function (data) {
       GPSdata = data;
-      console.log('got it');
+      console.log(GPSdata);
     },
     error: function (data) {
     console.error('nope');
     }
     });
   };
-  setInterval(function(){fetch()}, 1000);
+  setInterval(function(){fetch()}, 500);
 
   // $('body').append(GPSdata.lon);
   // $('body').append(GPSdata.lat);
