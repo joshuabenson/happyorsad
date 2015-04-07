@@ -14,7 +14,7 @@
     "MQTTClient": "0.0.1",
     "bookshelf": "^0.7.9",
     "ejs": "~0.8.5",
-    "express": "~4.0.0",
+    "express": "^4.0.0",
     "express-partials": "~0.2.0",
     "express-session": "^1.7.2",
     "forever": "^0.10.11",
