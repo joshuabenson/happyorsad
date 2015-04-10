@@ -2,7 +2,7 @@
   "name": "happy-or-sad",
   "version": "0.0.1",
   "description": "where on his planet is just",
-  "main": "shortly.js",
+  "main": "server.js",
   "repository": "",
   "license": "Proprietary",
   "private": true,
