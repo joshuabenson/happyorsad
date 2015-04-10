@@ -32,7 +32,7 @@ app.get('/gps', function(req, res){
 app.get('/', function(req, res){
   res.sendfile('./index.html');
 });
-//listen on port 3000 for requests
-app.listen(3000);
+var port = process.env.PORT || 8080;
+app.listen(port);
 
 
