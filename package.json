@@ -5,7 +5,6 @@
   "main": "server.js",
   "repository": "",
   "license": "Proprietary",
-  "private": true,
   "dependencies": {
     "ejs": "~0.8.5",
     "express": "^4.0.0",
@@ -15,5 +14,8 @@
     "node-static": "^0.7.6",
     "nodemon": "^1.2.1",
     "request": "^2.34.0",
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
