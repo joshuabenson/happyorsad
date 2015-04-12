@@ -1,13 +1,11 @@
 var mqtt = require('mqtt');
-var mqttpacket = require('mqtt-packet');
-
 var express = require('express');
 // var static = require('node-static');
 // var io = require('socket.io').listen(80);
 var app = express();
 app.use(express.static(__dirname));
 var data;
-
+// var fresh;
 var serverGet = function(callback) {
   var client = mqtt.connect('mqtt://test.mosquitto.org');
 
@@ -16,31 +14,28 @@ var serverGet = function(callback) {
   });
 
   client.on('message', function(topic, message){
-  console.log(message.toString());
-
+  console.log('New data:', message.toString());
   data = message;
- 
-  initialize(JSON.parse(data));
-  
-  // console.log(message);
+  // fresh = true;
+  callback();
   // client.end();
   });
 };
 
-//CALL JQUERY AND PASS ARGUMENTS DUDE
+serverGet(function(){});
 
 app.get('/gps', function(req, res){
-serverGet();
-  // res.send(data);
+
+  res.send(data);  
+
 });
 
 app.get('/', function(req, res){
-    
-  res.sendfile('./index.html', null, function(){
-  serverGet();
-      // initialize(JSON.parse(data));    
-  });
+  // serverGet();
+  // res.sendfile('./index.html', null, function(){
+  // });
 });
+
 var port = process.env.PORT || 8080;
 app.listen(port);
 

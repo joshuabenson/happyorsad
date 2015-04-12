@@ -1,10 +1,18 @@
 // var express = require('express'),
 // mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/josh');
+var oldData;
 
 var fetch = function(){
+
   $.get('/gps', function (data) {
+    if (data!==oldData) {
     initialize(JSON.parse(data));
+    oldData = data;
+    console.log(data);
+  } else {
+    console.log('No updates');
+  }
   });
 };
 

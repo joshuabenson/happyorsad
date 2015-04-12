@@ -33,13 +33,9 @@
       //   });
       marker.setMap(map);
     }
-    google.maps.event.addDomListener(window, 'load', 
-      function() { 
-        $.get('/gps', function (data) {
-
-          initialize(JSON.parse(data));
-        });
-      });
+    fetch();
+    setInterval(function() { fetch(); }, 10000);
+    google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
   </head>
