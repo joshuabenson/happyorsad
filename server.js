@@ -1,4 +1,6 @@
 var mqtt = require('mqtt');
+var mqttpacket = require('mqtt-packet');
+
 var express = require('express');
 // var static = require('node-static');
 // var io = require('socket.io').listen(80);
@@ -6,7 +8,7 @@ var app = express();
 app.use(express.static(__dirname));
 var data;
 
-var serverGet = function() {
+var serverGet = function(callback) {
   var client = mqtt.connect('mqtt://test.mosquitto.org');
 
   client.on('connect', function(){
@@ -17,20 +19,27 @@ var serverGet = function() {
   console.log(message.toString());
 
   data = message;
-
-  client.end();
+ 
+  initialize(JSON.parse(data));
+  
+  // console.log(message);
+  // client.end();
   });
 };
 
+//CALL JQUERY AND PASS ARGUMENTS DUDE
 
 app.get('/gps', function(req, res){
-  //get data from mqtt server and return in response
-  serverGet();
-  res.send(data);
+serverGet();
+  // res.send(data);
 });
 
 app.get('/', function(req, res){
-  res.sendfile('./index.html');
+    
+  res.sendfile('./index.html', null, function(){
+  serverGet();
+      // initialize(JSON.parse(data));    
+  });
 });
 var port = process.env.PORT || 8080;
 app.listen(port);
