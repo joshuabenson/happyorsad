@@ -14,14 +14,19 @@ var serverGet = function() {
   client.on('message', function(topic, message){
     console.log(message.toString());
     data = message;
-    client.end();
+    // client.end();
   });
 };
 
 app.get('/gps', function(req, res){
   //get data from mqtt server and return in response
   serverGet();
-  res.send(data);
+
+  if (data) {
+    res.send(data);
+  } else {
+    setTimeout(function(){ res.send(data) }, 300);
+  }  
 });
 
 app.get('/', function(req, res){

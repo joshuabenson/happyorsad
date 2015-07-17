@@ -1,5 +1,5 @@
 
-fetch();
+
 function initialize(GPSdata) {
   var lat = GPSdata.lat;//data from ajax request
   var lon = GPSdata.lon;
@@ -20,4 +20,6 @@ function initialize(GPSdata) {
   //   });
   marker.setMap(map);
 }
+fetch();
+setInterval(function() { fetch(); }, 8000);
 google.maps.event.addDomListener(window, 'load', initialize);
