@@ -26,7 +26,7 @@ app.get('/gps', function(req, res){
     res.send(data);
   } else {
     setTimeout(function(){ res.send(data) }, 300);
-  }  
+  }
 });
 
 app.get('/', function(req, res){
@@ -35,5 +35,3 @@ app.get('/', function(req, res){
 
 var port = process.env.PORT || 8080;
 app.listen(port);
-
-

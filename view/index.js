@@ -7,7 +7,7 @@ function initialize(GPSdata) {
   var myCenter = new google.maps.LatLng(lat,lon);
   var mapProp = {
     center:myCenter,
-    zoom:14,
+    zoom:12,
     mapTypeId:google.maps.MapTypeId.ROADMAP
   };
   var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
