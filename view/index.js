@@ -15,28 +15,27 @@ function initialize(GPSdata) {
     animation: google.maps.Animation.DROP
   });
   marker.setMap(map);
-var infowindow = new google.maps.InfoWindow({
-  content: convertTimestamp(GPSdata.tst)
-});
+  var infowindow = new google.maps.InfoWindow({
+    content: convertTimestamp(GPSdata.tst)
+  });
   //this gets run when marker is clicked
-  
-google.maps.event.addListener(marker, 'animation_changed', function(){
-  setTimeout(function(){
-    marker.setIcon('joshcopy.png');
-    infowindow.close();
-  }, 1500);
-  marker.setIcon('joshhappy.png');
-  infowindow.open(marker.get('map'), marker);
-});  
-google.maps.event.addListener(marker, 'click', function(){
-  if (marker.icon==='joshcopy.png') {
-    infowindow.open(marker.get('map'), marker);
+  google.maps.event.addListener(marker, 'animation_changed', function(){
+    setTimeout(function(){
+      marker.setIcon('joshcopy.png');
+      infowindow.close();
+    }, 1500);
     marker.setIcon('joshhappy.png');
-  } else {
-    infowindow.close();
-    marker.setIcon('joshcopy.png');
-  }
-});
+    infowindow.open(marker.get('map'), marker);
+  });  
+  google.maps.event.addListener(marker, 'click', function(){
+    if (marker.icon==='joshcopy.png') {
+      infowindow.open(marker.get('map'), marker);
+      marker.setIcon('joshhappy.png');
+    } else {
+      infowindow.close();
+      marker.setIcon('joshcopy.png');
+    }
+  });
 };
 fetch();
 setInterval(function() { fetch(); }, 8000);
