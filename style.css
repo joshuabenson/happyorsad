@@ -1,9 +1,9 @@
-body, html {
+body, html, #googleMap {
   height: 100%;
   width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 #googleMap {
-  width: 100%;
-  height: 100%;
   position: relative;
 }
