@@ -18,7 +18,6 @@ function initialize(GPSdata) {
   var infowindow = new google.maps.InfoWindow({
     content: convertTimestamp(GPSdata.tst)
   });
-  //this gets run when marker is clicked
   google.maps.event.addListener(marker, 'animation_changed', function(){
     setTimeout(function(){
       marker.setIcon('joshcopy.png');
