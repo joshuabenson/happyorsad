@@ -46,10 +46,11 @@ angular.module('happy', [])
       return $http.get('/gps').then( function(response) {
         self.gpsData = response.data; 
       }, function(errResponse) {
-          console.error('Error while fetching notes');
+          console.error('Error while fetching Josh data');
       });
     };
+    self.fetchGPS();
 }]);
 
-setInterval(function() { fetch(); }, 8000);
-google.maps.event.addDomListener(window, 'load', initialize);
+// setInterval(function() { fetch(); }, 8000);
+// google.maps.event.addDomListener(window, 'load', initialize);

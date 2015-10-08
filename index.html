@@ -1,19 +1,22 @@
-<html>
+<html ng-app="happy">
   <head>
     <title>Where's Josh - Happy or Sad</title>
      <meta name="viewport" content="width=device-width">
   </head>
-  <body ng-app="happy">
+  <body>
   <main>
-    <div id="googleMap"></div>
+    <div id="googleMap" ng-controller="MainCtrl as mainCtrl">
+      <span>{{mainCtrl.gpsData}}</span>
+    </div>
   </main>
-    <script src="lib/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="lib/time.js"></script>
+    <script src="./lib/jquery.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./lib/time.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="model/gpsmodel.js"></script>
-    <script src="view/index.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="./lib/time.js"></script>
+<!--     // <script src="model/gpsmodel.js"></script> -->
+    <script src="client/scripts/app.js"></script>
+    <link rel="stylesheet" href="style/style.css">
   </body>
 </html>

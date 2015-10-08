@@ -1,9 +1,22 @@
 var mqtt = require('mqtt');
 var express = require('express');
+var path = require('path');
 var app = express();
-app.use(express.static(__dirname));
-var context;
+app.use(express.static(path.join(__dirname, '../')));
+// app.use('/', express.static('__dirname'));
+// console.log(__dirname);
+// app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
+// app.configure(function(){
+//   // Serve up content from public directory
+//   app.use(express.static(__dirname + '../'));
+//   app.use(express.static(__dirname + '../bower_components'));
+//   app.use(app.router);
+//   // app.use(express.logger()); 
+// });
+
+var context;
+//get our GPS data from MQTT server
 var serverGet = function(callback) {
   var client = mqtt.connect('mqtt://test.mosquitto.org');
 
@@ -19,10 +32,11 @@ var serverGet = function(callback) {
   });
 };
 
+//send mqtt gps data when requested
 app.get('/gps', function(req, res){
-  //get data from mqtt server and return in response
   context = this;
   serverGet(function(data){
+    console.log('sending data... ', data);
     res.send(data);
   });
 });
@@ -33,3 +47,4 @@ app.get('/gps', function(req, res){
 
 var port = process.env.PORT || 8080;
 app.listen(port);
+console.log("Listening on port " + port);
