@@ -41,11 +41,11 @@
 angular.module('happy', [])
   .controller('MainCtrl', ['$http', function($http) {
     var self = this;
-    self.gpsData = {};
+    self.gpsData = {lat:0, lon:0};
     self.fetchGPS = function() {
       return $http.get('/gps').then( function(response) {
         self.gpsData = JSON.parse(JSON.stringify(response.data));
-        console.log(self.gpsData);
+        console.log(self, self.gpsData);
       }, function(errResponse) {
           console.error('Error while fetching Josh GPS data');
       });
@@ -55,20 +55,20 @@ angular.module('happy', [])
   .directive('gMap', [function(){
     var link = function(scope, element, attrs){
       var map, myCenter, mapProp, marker;
-      scope.$watch('gpsData', function(n, o) {
-        console.log(scope, n, o);
-        // myCenter = new google.maps.LatLng(scope.gpsData.lat, scope.gpsData.lon);
-        // mapProp = {
-        //   center: myCenter,
-        //   zoom: 12,
-        //   mapTypeId: google.maps.MapTypeId.ROADMAP
-        // };
-        // map = map || new google.maps.Map(element[0], mapProp);
-        // marker = new google.maps.Marker({
-        //   position:myCenter,
-        //   icon:'joshcopy.png',
-        //   animation: google.maps.Animation.DROP
-        // });
+      scope.$watch('mainCtrl.gpsData', function(n, o) {
+        console.log('LINK', scope, scope.mainCtrl.gpsData.lat, scope.mainCtrl.gpsData.lon);
+        myCenter = new google.maps.LatLng(scope.mainCtrl.gpsData.lat, scope.mainCtrl.gpsData.lon);
+        mapProp = {
+          center: myCenter,
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(element[0], mapProp);
+        marker = new google.maps.Marker({
+          position:myCenter,
+          icon:'joshcopy.png',
+          animation: google.maps.Animation.DROP
+        });
       });  
     };
     return {
