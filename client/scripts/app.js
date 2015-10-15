@@ -37,7 +37,6 @@
 //   });
 // };
 // fetch();
-
 angular.module('happy', [])
   .controller('MainCtrl', ['$http', function($http) {
     var self = this;
@@ -47,7 +46,7 @@ angular.module('happy', [])
         self.gpsData = JSON.parse(JSON.stringify(response.data));
         console.log(self, self.gpsData);
       }, function(errResponse) {
-          console.error('Error while fetching Josh GPS data');
+        console.error('Error while fetching Josh GPS data:', errResponse);
       });
     };
     self.fetchGPS();
@@ -55,8 +54,8 @@ angular.module('happy', [])
   .directive('gMap', [function(){
     var link = function(scope, element, attrs){
       var map, myCenter, mapProp, marker;
-      scope.$watch('mainCtrl.gpsData', function(n, o) {
-        console.log('LINK', scope, scope.mainCtrl.gpsData.lat, scope.mainCtrl.gpsData.lon);
+      scope.$watchCollection('mainCtrl', function(n, o) {
+        console.log('Link Watch=>', 'scope:', scope, 'element', angular.element(element).scope());
         myCenter = new google.maps.LatLng(scope.mainCtrl.gpsData.lat, scope.mainCtrl.gpsData.lon);
         mapProp = {
           center: myCenter,
@@ -69,7 +68,7 @@ angular.module('happy', [])
           icon:'joshcopy.png',
           animation: google.maps.Animation.DROP
         });
-      });  
+      });
     };
     return {
       restrict: 'A',
