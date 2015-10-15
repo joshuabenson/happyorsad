@@ -38,7 +38,7 @@
 // };
 // fetch();
 angular.module('happy', [])
-  .controller('MainCtrl', ['$http', function($http) {
+  .controller('MainCtrl', ['$scope', '$http', function($scope, $http) {
     var self = this;
     self.gpsData = {lat:0, lon:0};
     self.fetchGPS = function() {
@@ -54,9 +54,10 @@ angular.module('happy', [])
   .directive('gMap', [function(){
     var link = function(scope, element, attrs){
       var map, myCenter, mapProp, marker;
-      scope.$watchCollection('mainCtrl', function(n, o) {
-        console.log('Link Watch=>', 'scope:', scope, 'element', angular.element(element).scope());
-        myCenter = new google.maps.LatLng(scope.mainCtrl.gpsData.lat, scope.mainCtrl.gpsData.lon);
+      //watch the model of the element for changes (declared using ng-model in html); this will happen when gpsData updates
+      scope.$watchCollection(attrs.ngModel, function(newValue, oldValue){
+        console.log(element, attrs);
+        myCenter = new google.maps.LatLng(newValue.lat, newValue.lon);
         mapProp = {
           center: myCenter,
           zoom: 12,
@@ -67,7 +68,8 @@ angular.module('happy', [])
           position:myCenter,
           icon:'joshcopy.png',
           animation: google.maps.Animation.DROP
-        });
+        })
+        marker.setMap(map);
       });
     };
     return {
