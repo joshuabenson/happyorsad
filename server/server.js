@@ -24,7 +24,7 @@ var serverGet = function(callback) {
     client.subscribe('owntracks/joshb123/joshiphone');
   });
   client.on('message', function(topic, message){
-    console.log(message.toString());
+    // console.log(message.toString());
     callback.call(context, message);
   });
   client.on('error', function(err){
