@@ -1,52 +1,50 @@
-
-var sys = require('sys');
-var net = require('net');
 var mqtt = require('mqtt');
-var static = require('node-static');
+var express = require('express');
+var path = require('path');
+var app = express();
+app.use(express.static(path.join(__dirname, '../')));
+// app.use('/', express.static('__dirname'));
+// console.log(__dirname);
+// app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
-// var io = require('socket.io').listen(80);
-var data;
- var defaultCorsHeaders = {
-    "access-control-allow-origin": "*",
-    "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS", 
-    "access-control-allow-headers": "content-type, accept",
-    "access-control-max-age": 10 // Seconds.
- };
- var headers = defaultCorsHeaders;
- headers['Content-Type'] = "application/json";
-var serverGet = function() {
+// app.configure(function(){
+//   // Serve up content from public directory
+//   app.use(express.static(__dirname + '../'));
+//   app.use(express.static(__dirname + '../bower_components'));
+//   app.use(app.router);
+//   // app.use(express.logger()); 
+// });
 
-var client = mqtt.connect('mqtt://test.mosquitto.org');
+var context;
+//get our GPS data from MQTT server
+var serverGet = function(callback) {
+  var client = mqtt.connect('mqtt://test.mosquitto.org');
 
-
- client.on('connect', function(){
- client.subscribe('owntracks/joshb123/joshiphone');
-});
-
-client.on('message', function(topic, message){
-  console.log(message.toString());
-
-  data = message;
-
-  client.end();
-});
+  client.on('connect', function(){
+    client.subscribe('owntracks/joshb123/joshiphone');
+  });
+  client.on('message', function(topic, message){
+    // console.log(message.toString());
+    callback.call(context, message);
+  });
+  client.on('error', function(err){
+    console.log(err);
+  });
 };
-setInterval(function(){ serverGet() }, 5000); 
 
-var file = new static.Server('./index.html');
+//send mqtt gps data when requested
+app.get('/gps', function(req, res){
+  context = this;
+  serverGet(function(data){
+    console.log('sending data... ', data);
+    res.send(data);
+  });
+});
 
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-       
-        file.serve(request, response);
+// app.get('/', function(req, res){
+//   res.sendfile('./index.html');
+// });
 
-        response.writeHead(200, headers);
-        response.end(data);
-    }).resume();
-
-}).listen(8080);
-
-
-
-  
-
+var port = process.env.PORT || 8080;
+app.listen(port);
+console.log("Listening on port " + port);

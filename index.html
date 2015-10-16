@@ -1,0 +1,19 @@
+<html ng-app="happy">
+  <head>
+    <title>Where's Josh - Happy or Sad</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+    <main>
+      <div g-map ng-controller="MainCtrl as mainCtrl" ng-model="mainCtrl.gpsData">
+      </div>
+    </main>
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="./lib/time.js"></script>
+    <script src="./client/scripts/app.js"></script>
+    <link rel="stylesheet" href="client/style/style.css">
+  </body>
+</html>

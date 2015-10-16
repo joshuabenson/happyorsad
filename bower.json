@@ -1,0 +1,25 @@
+{
+  "name": "happyorsad",
+  "version": "0.1.2",
+  "homepage": "https://github.com/joshuabenson/happyorsad",
+  "authors": [
+    "Josh Benson <bensonjosha@gmail.com>"
+  ],
+  "description": "where is josh?",
+  "keywords": [
+    "josh"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.7",
+    "jQuery": "~2.1.4"
+  }
+}
