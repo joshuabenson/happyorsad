@@ -14,6 +14,7 @@ angular.module('happy', [])
   .directive('gMap', [function(){
     var link = function(scope, element, attrs){
       var map, myCenter, mapProp, marker, infoWindow;
+      var resumeDoc = 'https://docs.google.com/document/d/1PzpFgHLMV4DcX8UJloognQUPTsrtq_XbfEgm-5qrU04/edit?usp=sharing';
       //watch the model of the element for changes (declared using ng-model in html); this will happen when gpsData updates
       scope.$watchCollection(attrs.ngModel, function(newValue, oldValue){
         myCenter = new google.maps.LatLng(newValue.lat, newValue.lon);
@@ -30,7 +31,7 @@ angular.module('happy', [])
         })
         marker.setMap(map);
         infowindow = new google.maps.InfoWindow({
-          content: convertTimestamp(newValue.tst)
+          content: '<a href = "' + resumeDoc + '">Joshua Benson Resume</a>'
         });
         google.maps.event.addListener(marker, 'animation_changed', function(){
           setTimeout(function() {
